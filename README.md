@@ -1,10 +1,10 @@
 # boolean-logic
 
-FIXME: description
+Under construction.....
 
 ## Installation
 
-Download from http://example.com/FIXME.
+TBD
 
 ## Usage
 
@@ -30,7 +30,7 @@ FIXME: listing of options this app accepts.
 
 ## License
 
-Copyright © 2014 FIXME
+Copyright © 2014 Ronan Barzic
 
 Distributed under the Eclipse Public License either version 1.0 or (at
 your option) any later version.
