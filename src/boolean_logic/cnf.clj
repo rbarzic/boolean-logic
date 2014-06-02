@@ -6,6 +6,10 @@
   (:gen-class))
 
 
+;; Conversion to CNF
+;; see http://www.cs.jhu.edu/~jason/tutorials/convert-to-CNF.html
+
+
 (defmulti bf2cnf
   "Convert a  boolean function bf to cnf format (  ( a | b | c) & ( d | e | f)  & ...)"
   (fn [bf] (if (vector? bf) (let [x (first bf)]
@@ -17,6 +21,13 @@
                      :var
                      )))
 
+
+;; If φ has the form P ^ Q, then:
+;;    CONVERT(P) must have the form P1 ^ P2 ^ ... ^ Pm, and
+;;    CONVERT(Q) must have the form Q1 ^ Q2 ^ ... ^ Qn,
+;;    where all the Pi and Qi are disjunctions of literals.
+;;    So return P1 ^ P2 ^ ... ^ Pm ^ Q1 ^ Q2 ^ ... ^ Qn.
+;; 
 (defmethod bf2cnf :and
   [bf]
    (let [r (distinct (map #(bf2cnf  %) (rest bf)))]
@@ -31,7 +42,17 @@
      )
   )
 
-
+;; If φ has the form P v Q, then:
+;;    CONVERT(P) must have the form P1 ^ P2 ^ ... ^ Pm, and
+;;    CONVERT(Q) must have the form Q1 ^ Q2 ^ ... ^ Qn,
+;;    where all the Pi and Qi are dijunctions of literals.
+;;    So we need a CNF formula equivalent to
+;;       (P1 ^ P2 ^ ... ^ Pm) v (Q1 ^ Q2 ^ ... ^ Qn).
+;;    So return (P1 v Q1) ^ (P1 v Q2) ^ ... ^ (P1 v Qn)
+;;            ^ (P2 v Q1) ^ (P2 v Q2) ^ ... ^ (P2 v Qn)
+;;              ...
+;;            ^ (Pm v Q1) ^ (Pm v Q2) ^ ... ^ (Pm v Qn)
+;; 
 (defmethod bf2cnf :or
   [bf]
    (let [r (vec (distinct (map #(bf2cnf  %) (rest bf))))]
@@ -47,17 +68,20 @@
       (for [a x b y] (attach a b)))
      ([x]  x))
 
-
-   (vec (concat [:and]
+   (if (all-literals? bf) 
+     bf ;; return vector directly
+     (vec (concat [:and] ;; else apply transformation
                 (map
                    #( vec (cons  :or % ))
-                   (reduce mul-or (map to_vec r))))
-  )
-))
+                   (reduce mul-or (map to_vec r))))))))
 
 
 
-
+;; If φ has the form ~(...), then:
+;;   If φ has the form ~A for some variable A, then return φ.
+;;   If φ has the form ~(~P), then return CONVERT(P).           // double negation
+;;   If φ has the form ~(P ^ Q), then return CONVERT(~P v ~Q).  // de Morgan's Law
+;;   If φ has the form ~(P v Q), then return CONVERT(~P ^ ~Q).  // de Morgan's Law
 (defmethod bf2cnf :not
   [bf]
   (let [nexp  (nth bf 1 )]

@@ -10,6 +10,25 @@
 (def boolean_ops #{:and :or :not})
 (def boolean_ops_tf #{:and :or :not :true :false})
 
+
+; literal
+; if a vector v : 
+; v[0] == :not and v[1] not a vector -> true
+; true
+(defn literal?
+  "Check if x is a literal i.e. a variable x or its complement [:not y]"
+  [x]
+  (if (vector? x)
+    (let [y (first x) r (rest x)]
+      (and (= y :not) (not (vector? r)) true))
+    true))
+
+(defn all-literals?
+  "Check if all elements in the sequences are literals"
+  [xs]
+  (every? identity  (map literal? xs)))
+
+
 ;; from stack overflow - contains? can't be used with vector
 (defn in?
   "true if seq contains elm"
@@ -76,7 +95,7 @@
 
 
 (defn support
-  "Return the support of a boolean function as a sequence"
+  "Return the support of a boolean function as a ordered sequence"
   [bf]
   (if (vector? bf)
     (sort (clojure.set/difference (set (flatten bf)) boolean_ops_tf))
@@ -84,6 +103,10 @@
   ))
 
 
+
+(all-literals? ["a" "b" "c"])
+(all-literals?  ["a" [:not "b"] "c"])
+(all-literals? ["a" [:and "b" "d"] "c"])
 
 
 (defn -main

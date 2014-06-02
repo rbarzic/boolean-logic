@@ -16,6 +16,24 @@
 (def bf9 [:and "a1" "e1"])
 
 
+
+
+(deftest literal-test
+  (testing "Literal check test"
+    (is (= (literal? "a") true ))
+    (is (= (literal? [:not "a"]) true ))
+    (is (= (literal? [:and "a" "b"]) false ))
+    (is (= (literal? [:or "a" "b"]) false ))
+))
+
+(deftest all-literals-test
+  (testing "All-literals check test"
+
+    (is (=(all-literals? ["a" "b" "c"]) true))
+    (is (=(all-literals?  ["a" [:not "b"] "c"]) true))
+    (is (=(all-literals? ["a" [:and "b" "d"] "c"]) false))
+))
+
 (deftest compute-simple
   (testing "Simple boolean evaluation "
     (is (= (compute world bf1) :false))
