@@ -2,6 +2,7 @@
   (:require [clojure.test :refer :all]
             [boolean-logic.core :refer :all]
             [boolean-logic.cnf :refer :all]
+           
 ))
 
 (def world {"a1" :true "b2" :false "c3" :false "d4" :false
