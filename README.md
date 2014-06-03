@@ -1,4 +1,7 @@
+[![Build Status](https://travis-ci.org/rbarzic/boolean-logic.svg?branch=master)](https://travis-ci.org/rbarzic/boolean-logic)
+
 # boolean-logic
+
 
 Under construction.....
 
