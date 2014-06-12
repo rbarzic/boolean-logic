@@ -1,6 +1,6 @@
 (ns boolean-logic.core-test
   (:require [clojure.test :refer :all]
-            [boolean-logic.core :refer :all]))
+            [boolean-logic.core :refer :all] :reload-all))
 
 (def world {"a1" :true "b2" :false "c3" :false "d4" :false
             "e1" :true "e2" :false "e3" :false})
