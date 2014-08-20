@@ -1,9 +1,9 @@
 (ns boolean-logic.truth-table-test
   (:require [clojure.test :refer :all]
-            [boolean-logic.core :refer :all]            
-            [boolean-logic.truth-table :refer :all] 
-             [clojure.pprint :as pp]
-))
+            [clojure.pprint :as pp])
+  (:require  [boolean-logic.core :refer :all]
+             [boolean-logic.cnf :refer :all]
+             [boolean-logic.truth-table :refer :all] :reload-all))
 
 
 
