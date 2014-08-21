@@ -8,6 +8,8 @@
 
 
 (def bf8 [:or  [:and "a1" "b2" "c3"] "d4"])
+
+(def bf7_cnf [:or "e1" "e2" "e3"])
  
 (def fc1  {:nbclauses 3, :nbvar 5, 
            :clauses [
@@ -26,6 +28,12 @@
 
 
 (solve-problem (cnf2sat4j (bf2cnf bf8)))
-(solve-problem2 (cnf2sat4j (bf2cnf bf8)))
+
+(solve-problem-iter  (cnf2sat4j (bf2cnf bf8)))
+(solve-problem-iter  (cnf2sat4j bf7_cnf))
+
+;; (solve-problem2 (cnf2sat4j (bf2cnf bf8)))
 ;; (get-all-solutions  (cnf2sat4j (bf2cnf bf8)))
+(get-all-solutions  (cnf2sat4j (bf2cnf bf8)))
+(get-all-solutions  (cnf2sat4j bf7_cnf))
 
