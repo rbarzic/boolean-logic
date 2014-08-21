@@ -1,7 +1,13 @@
 (ns boolean-logic.sat4j-test
   (:require [clojure.test :refer :all]            
-            [boolean-logic.sat4j :refer :all]           
-            ))
+            [boolean-logic.sat4j :refer :all]
+            [boolean-logic.core :refer :all]
+            [boolean-logic.cnf :refer :all]
+            [boolean-logic.truth-table :refer :all]
+            :reload-all))
+
+
+(def bf8 [:or  [:and "a1" "b2" "c3"] "d4"])
  
 (def fc1  {:nbclauses 3, :nbvar 5, 
            :clauses [
@@ -17,3 +23,9 @@
   (testing "Very simple SAT evaluation"
     (is (= (solve-problem fc1) fc1-expected-result))
     ))
+
+
+(solve-problem (cnf2sat4j (bf2cnf bf8)))
+(solve-problem2 (cnf2sat4j (bf2cnf bf8)))
+;; (get-all-solutions  (cnf2sat4j (bf2cnf bf8)))
+

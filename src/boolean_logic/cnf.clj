@@ -134,3 +134,15 @@
               )))
 
 
+
+(defn cnf2sat4j 
+  "return a complete map for the boolean function 'cnf' for use with
+the sat4j API" 
+  [cnf]
+  (let [nbvar (count (support cnf))
+        clauses (cnf2sat4j-array cnf)
+        nbclauses (count clauses)]
+    {:nbvar nbvar :nbclauses nbclauses :clauses clauses}
+    ))
+
+

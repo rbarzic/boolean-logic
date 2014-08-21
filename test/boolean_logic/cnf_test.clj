@@ -56,30 +56,28 @@
   [
    [ 1 4]  ;; [:or "a1" "d4"]
    [ 2 4]  ;; [:or "b2" "d4"]
-   [ 3 4]  ;; [:or "b3" "d4"]
+   [ 3 4]  ;; [:or "c3" "d4"]
    ])
+
+(def bf8_sat4j_full
+  {:nbvar     4
+   :nbclauses 3
+   :clauses 
+   [
+    [ 1 4]  ;; [:or "a1" "d4"]
+    [ 2 4]  ;; [:or "b2" "d4"]
+    [ 3 4]  ;; [:or "b3" "d4"]
+    ]}
+  )
+
+
+
 
 (def bf7_sat4j
   [
    [ 1 2 3]  ;; [:or "e1" "e2" "e3"]   
    ])
 
-
-(deftest bf2cnf-simple
-  (testing "Simple conversion to CNF "
-    (is (= (bf2cnf bf1) bf1_cnf))
-    (is (= (bf2cnf bf2) bf2_cnf))
-    (is (= (bf2cnf bf3) bf3_cnf))
-    (is (= (bf2cnf bf4) bf4_cnf))
-    (is (= (bf2cnf bf5) bf5_cnf))
-    (is (= (bf2cnf bf6) bf6_cnf))
-    (is (= (bf2cnf bf7) bf7_cnf))
-    (is (= (bf2cnf bf8) bf8_cnf))
-    (is (= (bf2cnf bf9) bf9_cnf))
-    (is (= (bf2cnf bf10) bf10_cnf))
-    (is (= (bf2cnf bf11) bf11_cnf))
-    (is (= (bf2cnf bf12) bf12_cnf))
-))
 
 
 
@@ -99,8 +97,17 @@
     (is (= (bf2cnf bf12) bf12_cnf))))
 
 (deftest cnf2sat4j-array-simple-test 
-  (testing "Simple conversion to CNF "
+  (testing "Simple conversion to array of clauses "
     (is (= (cnf2sat4j-array bf8_cnf) bf8_sat4j))
     (is (= (cnf2sat4j-array bf7_cnf) bf7_sat4j))
 ))
+
+(deftest cnf2sat4j-conversion 
+  (testing "Simple conversion to a map, suitable for sat4j interface "
+    (is (= (cnf2sat4j  bf8_cnf) bf8_sat4j_full))
+    (is (= (cnf2sat4j  (bf2cnf bf8)) bf8_sat4j_full))
+))
+
+
+
 
