@@ -29,8 +29,8 @@
 
 (solve-problem (cnf2sat4j (bf2cnf bf8)))
 
-(solve-problem-iter  (cnf2sat4j (bf2cnf bf8)))
-(solve-problem-iter  (cnf2sat4j bf7_cnf))
+;; (solve-problem-iter  (cnf2sat4j (bf2cnf bf8)))
+;; (solve-problem-iter  (cnf2sat4j bf7_cnf))
 
 ;; (solve-problem2 (cnf2sat4j (bf2cnf bf8)))
 ;; (get-all-solutions  (cnf2sat4j (bf2cnf bf8)))
