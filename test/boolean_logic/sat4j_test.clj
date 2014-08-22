@@ -37,3 +37,7 @@
 (get-all-solutions  (cnf2sat4j (bf2cnf bf8)))
 (get-all-solutions  (cnf2sat4j bf7_cnf))
 
+
+(cnf-get-all-solutions-as-mapping  (bf2cnf bf8))
+(bf-get-all-solutions-as-mapping  bf8)
+

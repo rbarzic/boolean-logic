@@ -1,5 +1,8 @@
 (ns boolean-logic.sat4j
   (:gen-class)
+  (:require 
+           [boolean-logic.core :refer :all]
+           [boolean-logic.cnf :refer :all])
   (:import org.sat4j.minisat.SolverFactory)
   (:import org.sat4j.tools.ModelIterator)
   (:import [org.sat4j.core Vec  VecInt] ))
@@ -84,4 +87,40 @@
         r
         )
       )))
+
+
+(defn solution2mapping
+  "Return a map variable->value for a solution from sat4j SAT solver 
+  support is expected to be a vector"
+  [ support solution]
+  (letfn [(abs [n] (max n (- n))) ;; no abs function by default in clojure :-(
+          (val01 [v] (if (pos? v) 1 0)) 
+          (reduce-fn [result idx]
+            (into result {(support (dec (abs idx))) 
+                          (val01 idx)}))]
+    (reduce reduce-fn {} solution)
+    ))
+
+
+
+(defn cnf-get-all-solutions-as-mapping
+  [cnf]
+  (let [sup (support cnf)
+        bf-sat4j (cnf2sat4j cnf)
+        solutions (get-all-solutions bf-sat4j)]
+    (map #(solution2mapping (vec  sup) %) solutions)
+    ))
+
+
+(defn bf-get-all-solutions-as-mapping
+  [bf]
+  (let [sup (support bf)
+        cnf (bf2cnf bf)
+        bf-sat4j (cnf2sat4j cnf)
+        solutions (get-all-solutions bf-sat4j)]
+    (map #(solution2mapping (vec  sup) %) solutions)
+    ))
+
+
+
 
