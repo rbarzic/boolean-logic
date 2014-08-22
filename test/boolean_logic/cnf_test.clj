@@ -107,7 +107,7 @@
     (is (= (cnf2sat4j  bf8_cnf) bf8_sat4j_full))
     (is (= (cnf2sat4j  (bf2cnf bf8)) bf8_sat4j_full))
 ))
-
+(cnf2sat4j bf6_cnf)
 
 
 

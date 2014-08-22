@@ -9,6 +9,8 @@
 
 (def bf8 [:or  [:and "a1" "b2" "c3"] "d4"])
 
+(def bf9 [:and "a1" [:not "a1"] ])
+
 (def bf7_cnf [:or "e1" "e2" "e3"])
  
 (def fc1  {:nbclauses 3, :nbvar 5, 
@@ -40,4 +42,12 @@
 
 (cnf-get-all-solutions-as-mapping  (bf2cnf bf8))
 (bf-get-all-solutions-as-mapping  bf8)
+
+(bf2cnf bf8)
+
+;; Will generate a org.sat4j.specs.ContradictionException
+
+;; (bf2cnf bf9)
+;; (cnf2sat4j (bf2cnf bf9))
+;; (bf-get-all-solutions-as-mapping  bf9)
 

@@ -133,14 +133,16 @@
               :else "g"
               )))
 
-
+(defn fix-sat4j-array [a]
+  "[[a b c] d] -> [[a b c] [d]]"
+  (vec (map #(if (vector? %) % [%] ) a)))
 
 (defn cnf2sat4j 
   "return a complete map for the boolean function 'cnf' for use with
 the sat4j API" 
   [cnf]
   (let [nbvar (count (support cnf))
-        clauses (cnf2sat4j-array cnf)
+        clauses (fix-sat4j-array (cnf2sat4j-array cnf))
         nbclauses (count clauses)]
     {:nbvar nbvar :nbclauses nbclauses :clauses clauses}
     ))
