@@ -2,8 +2,7 @@ pom.xml.asc
 /lib/
 /classes/
 /checkouts/
-/target/repl/
-/target/uberjar/
+/target/
 .lein-deps-sum
 .lein-repl-history
 .lein-plugins/
