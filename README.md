@@ -12,7 +12,7 @@ A clojure library to play with boolean logic (under construction !)
 
 ### Leiningen
 
-Add [boolean-logic <put version as shown above here>] to your project.clj :dependencies vector.
+Add [boolean-logic _put_version_as_shown_above_here_ ] to your project.clj :dependencies vector.
 
 Example of a project.clj :
 
