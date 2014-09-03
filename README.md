@@ -26,7 +26,9 @@ Example of a project.clj :
   :main ^:skip-aot test-boolean-logic.core
   :target-path "target/%s"
   :profiles {:uberjar {:aot :all}
-             :dev {:plugins [[com.jakemccrary/lein-test-refresh "0.5.1"] [cider/cider-nrepl "0.7.0"]]}})
+             :dev {:plugins [
+             [com.jakemccrary/lein-test-refresh "0.5.1"]
+             [cider/cider-nrepl "0.7.0"]]}})
 ```
 ## Options
 
@@ -60,8 +62,40 @@ Example of a project.clj :
 
 ### Conversion to cnf (Conjunctive normal form)
 
+```clojure
+
+(def bf2 [:and   [:or "a" "b" "c"] "d"]) ; (a | b | c) & d
+
+(def bf3 [:or  [:and "a" "b" "c"] "d"]) ; (a & b & c) | d
 
 
+(cnf/bf2cnf bf2) ; => [:and [:or "a" "b" "c"] "d"] (bf2 was already in cnf format)
+
+
+(cnf/bf2cnf bf3) ; => [:and [:or "a" "d"] [:or "b" "d"] [:or "c" "d"]]
+
+
+
+```
+
+
+### Dimacs reader
+
+
+```clojure
+;;; TBD
+
+```
+
+
+
+### Using the sat4j solver
+
+```clojure
+
+;;; TBD
+
+```
 
 
 
