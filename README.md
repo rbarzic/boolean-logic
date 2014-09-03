@@ -1,5 +1,7 @@
 [![Build Status](https://travis-ci.org/rbarzic/boolean-logic.svg?branch=master)](https://travis-ci.org/rbarzic/boolean-logic)
 
+[![Clojars Project](http://clojars.org/boolean-logic/latest-version.svg)](http://clojars.org/boolean-logic)
+
 # boolean-logic
 
 
