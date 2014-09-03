@@ -86,7 +86,7 @@
   (let [nexp  (compute mapping (nth bf 1) )]
     (if (= nexp :true) :false
         (if (= nexp :false) :true
-            [:not bf]))))
+            bf))))
 
 (defmethod compute :var
   [mapping bf]

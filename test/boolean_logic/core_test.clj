@@ -74,6 +74,28 @@
 ))
 
 
+(deftest compute-incomplete-evaluation
+  (testing "Incomplete evaluation  - part I"
+    (is  (= (compute {"a1" :true }  
+                     bf3 
+                     )  [:not "c3"])) 
+    ;; bf6 [:and   [:or "a1" "b2" "c3"] "d5"])
+    (is  (= (compute {"a1" :true }  
+                     bf6
+                     )  "d5")) 
+    ;; (def bf8 [:or  [:and "a1" "b2" "c3"] "d4"])
+     (is  (= (compute {"a1" :true }  
+                     bf8
+                     )   [:or  [:and "b2" "c3"] "d4"])) 
+     ;; (def bf9 [:and "a1" "e1"])
+     (is  (= (compute {"a1" :true }  
+                     bf9
+                     )   "e1")) 
+
+))
+
+
+
 (deftest support-test
   (testing "Simple support tests"
     (is (= (support bf1) ["a1" "b2"]))
