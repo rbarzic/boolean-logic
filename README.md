@@ -5,33 +5,70 @@
 # boolean-logic
 
 
-Under construction.....
+A clojure library to play with boolean logic (under construction !)
 
-## Installation
+## Usage/Installation
 
-TBD
 
-## Usage
+### Leiningen
 
-FIXME: explanation
+Add [boolean-logic <put version as shown above here>] to your project.clj :dependencies vector.
 
-    $ java -jar boolean-logic-0.1.0-standalone.jar [args]
+Example of a project.clj :
 
+```clojure
+(defproject test-boolean-logic "0.1.0-SNAPSHOT"
+  :description "FIXME: write description"
+  :url "http://example.com/FIXME"
+  :license {:name "Eclipse Public License"
+            :url "http://www.eclipse.org/legal/epl-v10.html"}
+  :dependencies [[org.clojure/clojure "1.5.1"] [boolean-logic "0.1.0-SNAPSHOT"]]
+  :main ^:skip-aot test-boolean-logic.core
+  :target-path "target/%s"
+  :profiles {:uberjar {:aot :all}
+             :dev {:plugins [[com.jakemccrary/lein-test-refresh "0.5.1"] [cider/cider-nrepl "0.7.0"]]}})
+```
 ## Options
 
-FIXME: listing of options this app accepts.
 
 ## Examples
 
-...
+
+### evaluation
+
+```clojure
+(ns test-boolean-logic.core
+                     (:require 
+                      [boolean-logic.core :as bl]
+                      [boolean-logic.cnf :as cnf]
+                      [boolean-logic.dimacs :as dimacs]
+                      [boolean-logic.sat4j :as sat4j])
+                     (:gen-class))
+
+
+(def bf1 [:and "a" [:not "b"]])) ; a boolean function  (a & !b)
+
+(bl/support bf1)  ; => ("a" "b")
+
+(bl/compute {"a" :true "b" :false} bf1); => true
+
+(bl/compute {"a" :true } bf1); => [:not "b"]
+
+
+
+```
+
+### Conversion to cnf (Conjunctive normal form)
+
+
+
+
+
 
 ### Bugs
 
-...
+Probably some....
 
-### Any Other Sections
-### That You Think
-### Might be Useful
 
 ## License
 
