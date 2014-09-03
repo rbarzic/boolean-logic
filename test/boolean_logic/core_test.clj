@@ -83,10 +83,13 @@
     (is  (= (compute {"a1" :true }  
                      bf6
                      )  "d5")) 
+    (is  (= (compute {"a1" :false }  
+                     bf6
+                     )  [:and   [:or "b2" "c3"] "d5"])) 
     ;; (def bf8 [:or  [:and "a1" "b2" "c3"] "d4"])
      (is  (= (compute {"a1" :true }  
                      bf8
-                     )   [:or  [:and "b2" "c3"] "d4"])) 
+                     )   [:or  "d4" [:and "b2" "c3"] ])) 
      ;; (def bf9 [:and "a1" "e1"])
      (is  (= (compute {"a1" :true }  
                      bf9

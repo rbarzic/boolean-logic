@@ -56,7 +56,7 @@
           (let [rr (disj (set  r) :true)] ;; continue without :true
             (if (= (count rr) 1)
               (first rr) ;; one variable ? -> return it
-              (conj [:and] r)))))))
+              (into [:and] rr)))))))
 
 (defmethod compute :or
   [mapping bf]
@@ -70,7 +70,7 @@
               :false
               (if (= (count rr) 1)
                 (first rr)
-                (conj [:or] r))))))))
+                (into [:or] rr))))))))
 
 
 
