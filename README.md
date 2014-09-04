@@ -5,7 +5,8 @@
 # boolean-logic
 
 
-A clojure library to play with boolean logic (under construction !)
+A clojure library to play with boolean logic.
+Note that this library is under construction and a lot of change is to be expected (for example introduction of record and protocol)
 
 ## Usage/Installation
 
@@ -40,7 +41,7 @@ Example of a project.clj :
 
 ```clojure
 (ns test-boolean-logic.core
-                     (:require 
+                     (:require
                       [boolean-logic.core :as bl]
                       [boolean-logic.cnf :as cnf]
                       [boolean-logic.dimacs :as dimacs]
@@ -83,7 +84,18 @@ Example of a project.clj :
 
 
 ```clojure
-;;; TBD
+(def fc1 '("c"
+           "c start with comments"
+           "c"
+           "c "
+           "p cnf 5 3"
+           "1 -5 4 0"
+           "-1 5 3 4 0"
+           "-3 -4 0"
+           ))
+
+(dimacs/parse-dimacs fc1) ;; =>{:nbclauses 3, :nbvar 5, :clauses [[1 -5 4] [-1 5 3 4] [-3 -4]]}
+
 
 ```
 
@@ -93,7 +105,10 @@ Example of a project.clj :
 
 ```clojure
 
-;;; TBD
+(sat4j/solve-problem (cnf/cnf2sat4j (cnf/bf2cnf bf8)));;=>[-1 -2 -3 4]
+
+(sat4j/get-all-solutions (cnf/cnf2sat4j (cnf/bf2cnf bf8)));;=>[[-1 -2 -3 4] [-1 2 -3 4] [-1 -2 3 4] [-1 2 3 4] [1 2 3 -4] [1 2 -3 4] [1 -2 -3 4] [1 -2 3 4] [1 2 3 4]]
+
 
 ```
 
