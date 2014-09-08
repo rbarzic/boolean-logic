@@ -35,3 +35,44 @@
 
 ;; The operators X and U are the only fundamental temporal operators – F and
 ;; G can be derived from combinations of U and Boolean operators.
+
+
+;; F g == true U g
+;; G f = not (true U (not f))
+
+
+;; Always operator: A property, always f , is true on a run iff the property f
+;; holds on all states of the run. This is the same as saying that ¬f never
+;; holds on the run. In other words we may write:
+;; always f = ¬eventually ¬f
+;; eventually f = ¬always ¬f
+;; The first equation allows us to express the always operator using the even-
+;; tually operator, and in turn, in terms of the until operator.
+
+
+
+;; Rewriting rules
+;; f U g = g ∨ (f ∧ X(f U g))
+;; F g = g ∨ XF g
+;; Gf = f ∧ XGf
+
+
+;; Also
+
+;; always f = ¬eventually ¬f  -> G f= !F (!f)
+;; eventually f = ¬always ¬f   -> Ff = ! G !f
+;;
+
+;; SAT example p93
+;; P1 : G[ r 1 ⇒ Xg 1 ∧ XXg 1 ]
+
+;; As before, we will look for a run satisfying ¬P 1 in the implementation. Let
+;; φ = ¬P 1, that is:
+; φ = F [ r1 ∧ ( ¬Xg1 ∨ ¬XXg1 ) ]
+
+; demonstration
+; φ = !P1 = !G[ r 1 ⇒ Xg 1 ∧ XXg 1 ]
+;   = !G[ !r1 or (Xg1 & XXg1)]
+;   = !G[ !r1 or (Xg1 & XXg1)]
+;   = F[ !(!r1 or (Xg1 & XXg1))]
+;   = F[ r1 and (!Xg1 or!XXg1 )]
